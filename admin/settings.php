@@ -108,8 +108,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="form-group">
                             <label>Status Payment Gateway</label>
                             <select name="payment_mode">
-                                <option value="dummy" <?php echo (setting($settings, 'payment_mode', 'dummy') === 'dummy') ? 'selected' : ''; ?>>✅ Aktif</option>
-                                <option value="off" <?php echo (setting($settings, 'payment_mode', 'dummy') === 'off') ? 'selected' : ''; ?>>❌ Non-aktif</option>
+                                <option value="dummy" <?php echo (setting($settings, 'payment_mode', 'dummy') === 'dummy') ? 'selected' : ''; ?>><i data-lucide="check-circle"></i> Aktif</option>
+                                <option value="off" <?php echo (setting($settings, 'payment_mode', 'dummy') === 'off') ? 'selected' : ''; ?>><i data-lucide="x-circle"></i> Non-aktif</option>
                             </select>
                         </div>
                     </div>

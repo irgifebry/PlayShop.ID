@@ -12,7 +12,6 @@ $user_id = $_SESSION['user_id'];
 $success = '';
 $error = '';
 
-// Fetch active payment methods
 $stmt = $pdo->query("SELECT * FROM payment_methods WHERE is_active = 1 ORDER BY type, name");
 $payment_methods = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -25,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (empty($payment_code)) {
         $error = 'Silakan pilih metode pembayaran';
     } else {
-        // Fetch method ID
         $st = $pdo->prepare("SELECT id FROM payment_methods WHERE code = ?");
         $st->execute([$payment_code]);
         $pm_id = $st->fetchColumn();
@@ -34,12 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Metode pembayaran tidak valid';
         } else {
             try {
-                // Insert into deposits as pending
                 $stmt = $pdo->prepare("INSERT INTO deposits (user_id, amount, payment_method_id, status) VALUES (?, ?, ?, 'pending')");
                 $stmt->execute([$user_id, $amount, $pm_id]);
                 $deposit_id = $pdo->lastInsertId();
 
-                // Redirect ke halaman instruksi pembayaran
                 header("Location: deposit-pay.php?id=" . $deposit_id);
                 exit;
 
@@ -50,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Get current balance
 $stmt = $pdo->prepare("SELECT balance FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
 $current_balance = $stmt->fetchColumn();
@@ -69,7 +64,7 @@ $current_balance = $stmt->fetchColumn();
 
     <section class="checkout-section">
         <div class="container">
-            <h1 class="page-title">💰 Top Up Saldo (Deposit)</h1>
+            <h1 class="page-title"><i data-lucide="wallet"></i> Top Up Saldo (Deposit)</h1>
             <p class="page-subtitle">Isi saldo akun untuk kemudahan transaksi tanpa perlu transfer berkali-kali.</p>
 
             <div class="checkout-container" style="max-width: 600px;">
@@ -86,7 +81,6 @@ $current_balance = $stmt->fetchColumn();
                     <?php endif; ?>
 
                     <form method="POST">
-                        <!-- Step 1: Nominal -->
                         <div class="form-section">
                             <h3>1. Pilih Nominal Deposit</h3>
                             <div class="nominal-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
@@ -112,7 +106,6 @@ $current_balance = $stmt->fetchColumn();
                             </div>
                         </div>
 
-                        <!-- Step 2: Pembayaran -->
                         <div class="form-section">
                             <h3>2. Pilih Metode Pembayaran</h3>
                             <div class="payment-methods">

@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = $_POST['subject'];
     $message = $_POST['message'];
     
-    // Simpan ke database (tabel contacts - buat dulu)
+
     try {
         $stmt = $pdo->prepare("INSERT INTO contacts (name, email, subject, message, created_at) VALUES (?, ?, ?, ?, NOW())");
         $stmt->execute([$name, $email, $subject, $message]);
@@ -107,11 +107,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h2>Informasi Kontak Lainnya</h2>
                     <div class="grid-2-col" style="margin-top: 1rem;">
                         <div>
-                            <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">📱 WhatsApp</h3>
+                            <h3 style="font-size: 1rem; margin-bottom: 0.5rem;"><i data-lucide="smartphone"></i> WhatsApp</h3>
                             <p style="font-size: 0.9rem; color: var(--text-light);">+62 812-3456-7890 (Chat Only)</p>
                         </div>
                         <div>
-                            <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">📧 Official Email</h3>
+                            <h3 style="font-size: 1rem; margin-bottom: 0.5rem;"><i data-lucide="mail"></i> Official Email</h3>
                             <p style="font-size: 0.9rem; color: var(--text-light);">support@playshop.id</p>
                         </div>
                     </div>

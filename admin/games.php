@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         if ($action === 'add') {
             $name = trim($_POST['name'] ?? '');
-            $icon = trim($_POST['icon'] ?? '🎮');
+            $icon = trim($_POST['icon'] ?? '<i data-lucide="gamepad-2"></i>');
             $category = trim($_POST['category'] ?? 'Other');
             $color_start = trim($_POST['color_start'] ?? '#10b981');
             $color_end = trim($_POST['color_end'] ?? '#059669');
@@ -53,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("INSERT INTO games (name, icon, image_path, description, how_to_topup, faq, color_start, color_end, min_price, is_active, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([
                 $name,
-                $icon !== '' ? $icon : '🎮',
+                $icon !== '' ? $icon : '<i data-lucide="gamepad-2"></i>',
                 $image_path,
                 $description !== '' ? $description : null,
                 $how_to_topup !== '' ? $how_to_topup : null,
@@ -66,7 +66,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             $game_id = $pdo->lastInsertId();
             
-            // Add products (nominal/asset) if provided
+
             $product_names = $_POST['product_names'] ?? [];
             $product_prices = $_POST['product_prices'] ?? [];
             
@@ -88,7 +88,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action === 'update') {
             $id = safe_int($_POST['game_id'] ?? 0);
             $name = trim($_POST['name'] ?? '');
-            $icon = trim($_POST['icon'] ?? '🎮');
+            $icon = trim($_POST['icon'] ?? '<i data-lucide="gamepad-2"></i>');
             $category = trim($_POST['category'] ?? 'Other');
             $color_start = trim($_POST['color_start'] ?? '#10b981');
             $color_end = trim($_POST['color_end'] ?? '#059669');
@@ -113,14 +113,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 $image_path = to_public_path((string)$upload['path']);
                 
-                // Delete old file if update success
+
                 $old_image_to_delete = $existing['image_path'] ?? null;
             }
 
             $stmt = $pdo->prepare("UPDATE games SET name = ?, icon = ?, image_path = ?, description = ?, how_to_topup = ?, faq = ?, color_start = ?, color_end = ?, min_price = ?, is_active = ?, category = ? WHERE id = ?");
             $stmt->execute([
                 $name,
-                $icon !== '' ? $icon : '🎮',
+                $icon !== '' ? $icon : '<i data-lucide="gamepad-2"></i>',
                 $image_path,
                 $description !== '' ? $description : null,
                 $how_to_topup !== '' ? $how_to_topup : null,
@@ -133,17 +133,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $id
             ]);
             
-            // If we have an old image to delete, do it now
+
             if (isset($old_image_to_delete)) {
                 delete_uploaded_file($old_image_to_delete);
             }
             
-            // Handle products (nominal/asset) update
+
             if (isset($_POST['products_action'])) {
-                // Delete products marked for deletion
+
                 $product_delete_ids = $_POST['product_delete_ids'] ?? [];
                 if (!empty($product_delete_ids)) {
-                    // product_delete_ids bisa array atau string comma-separated
+
                     $delete_ids = [];
                     foreach ($product_delete_ids as $pid_str) {
                         $pid = safe_int($pid_str);
@@ -160,7 +160,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
                 
-                // Update existing products
+
                 $product_ids = $_POST['product_ids'] ?? [];
                 $product_names = $_POST['product_names'] ?? [];
                 $product_prices = $_POST['product_prices'] ?? [];
@@ -191,7 +191,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = safe_int($_POST['game_id'] ?? 0);
             if ($id <= 0) throw new RuntimeException('game_id invalid');
 
-            // Get image path before delete
+
             $stmt = $pdo->prepare("SELECT image_path FROM games WHERE id = ?");
             $stmt->execute([$id]);
             $g = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -341,7 +341,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY game_id, price")->fetch
                 <div class="form-row">
                     <div class="form-group" style="margin:0;">
                         <label>Icon (Emoji)</label>
-                        <input type="text" name="icon" id="icon" value="🎮" required>
+                        <input type="text" name="icon" id="icon" value="<i data-lucide="gamepad-2"></i>" required>
                     </div>
                     <div class="form-group" style="margin:0;">
                         <label>Kategori</label>
@@ -405,12 +405,12 @@ $products = $pdo->query("SELECT * FROM products ORDER BY game_id, price")->fetch
                     <textarea name="faq" id="faq" rows="4" placeholder="Q: ...\nA: ..."></textarea>
                 </div>
 
-                <!-- Section Produk (Nominal/Asset dan Harga) -->
+                
                 <hr style="margin: 20px 0; border: none; border-top: 1px solid #e5e7eb;">
                 <h3 style="margin-bottom: 15px;">Produk (Nominal & Harga)</h3>
                 
                 <div id="productsContainer">
-                    <!-- Products akan ditambahkan di sini oleh JavaScript -->
+                    
                 </div>
 
                 <button type="button" class="btn-secondary" style="margin-bottom: 20px;" onclick="addProductRow()">+ Tambah Nominal</button>
@@ -493,7 +493,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY game_id, price")->fetch
             document.getElementById('game_id').value = '';
             document.getElementById('products_action').value = '0';
             document.getElementById('name').value = '';
-            document.getElementById('icon').value = '🎮';
+            document.getElementById('icon').value = '<i data-lucide="gamepad-2"></i>';
             document.getElementById('category').value = 'Other';
             document.getElementById('min_price').value = '5000';
             document.getElementById('color_start').value = '#10b981';
@@ -520,7 +520,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY game_id, price")->fetch
             document.getElementById('game_id').value = game.id;
             document.getElementById('products_action').value = '1';
             document.getElementById('name').value = game.name || '';
-            document.getElementById('icon').value = game.icon || '🎮';
+            document.getElementById('icon').value = game.icon || '<i data-lucide="gamepad-2"></i>';
             document.getElementById('category').value = game.category || 'Other';
             document.getElementById('min_price').value = String(game.min_price || 0);
             document.getElementById('color_start').value = game.color_start || '#10b981';
@@ -543,7 +543,7 @@ $products = $pdo->query("SELECT * FROM products ORDER BY game_id, price")->fetch
             }
             gameImageInput.value = '';
             
-            // Clear and load products
+
             document.getElementById('productsContainer').innerHTML = '<input type="hidden" id="deleteProductIds" name="product_delete_ids[]" value="">';
             productRowCounter = 0;
             

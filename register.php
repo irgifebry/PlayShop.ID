@@ -16,7 +16,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $password = password_hash($passwordRaw, PASSWORD_DEFAULT);
 
-        // Check if email exists
         $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
         $stmt->execute([$email]);
 
@@ -43,7 +42,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
     <?php include "includes/header.php"; ?>
 
     <main class="auth-page">
@@ -84,7 +82,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label>Password</label>
                         <input type="password" name="password" placeholder="Minimal 6 karakter" minlength="6" required>
-                        <p style="font-size: 0.75rem; color: #9ca3af; margin-top: 5px;">🔒 Aman & Terenkripsi</p>
+                        <p style="font-size: 0.75rem; color: #9ca3af; margin-top: 5px;"><i data-lucide="lock"></i> Aman & Terenkripsi</p>
                     </div>
 
                     <button type="submit" class="btn-login" style="margin-top: 10px;">DAFTAR SEKARANG</button>

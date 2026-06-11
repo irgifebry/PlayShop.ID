@@ -38,10 +38,10 @@ try {
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
+    
     <?php include "includes/header.php"; ?>
 
-    <!-- Promo Detail Section -->
+    
     <main class="promo-detail-section">
         <div class="container">
             <a href="index.php" class="btn-back-home">&larr; Kembali ke Beranda</a>

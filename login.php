@@ -43,7 +43,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
+    
     <?php include "includes/header.php"; ?>
 
     <main class="auth-page">

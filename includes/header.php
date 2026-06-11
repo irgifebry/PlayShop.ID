@@ -1,5 +1,4 @@
 <?php
-// includes/header.php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -17,7 +16,7 @@ if ($is_legal_page) {
         <div class="container">
             <div class="logo">
                 <a href="index.php">
-                    <span class="logo-icon">🎮</span>
+                    <span class="logo-icon"></span>
                     <span class="logo-text">PLAYSHOP<span class="highlight">.ID</span></span>
                 </a>
             </div>

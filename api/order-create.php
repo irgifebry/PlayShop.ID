@@ -41,7 +41,7 @@ try {
 
     $order_id = 'TRX' . time() . rand(1000, 9999);
 
-    // Use new schema if present
+
     if (db_has_column($pdo, 'transactions', 'game_user_id')) {
         $stmt = $pdo->prepare("INSERT INTO transactions (order_id, game_id, product_id, user_id, zone_id, game_user_id, game_zone_id, payment_method, subtotal, admin_fee, discount_amount, voucher_code, amount, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())");
         $stmt->execute([

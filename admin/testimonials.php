@@ -61,9 +61,9 @@ $testimonials = $pdo->query("SELECT * FROM testimonials ORDER BY created_at DESC
                         <?php foreach($testimonials as $t): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($t['name']); ?></td>
-                            <td>⭐ <?php echo $t['rating']; ?></td>
+                            <td><i data-lucide="star"></i> <?php echo $t['rating']; ?></td>
                             <td><?php echo htmlspecialchars($t['comment']); ?></td>
-                            <td><?php echo $t['is_shown'] ? '✅ Ya' : '❌ Tidak'; ?></td>
+                            <td><?php echo $t['is_shown'] ? '<i data-lucide="check-circle"></i> Ya' : '<i data-lucide="x-circle"></i> Tidak'; ?></td>
                             <td>
                                 <form method="POST" style="display:inline;">
                                     <input type="hidden" name="action" value="toggle">

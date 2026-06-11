@@ -105,7 +105,7 @@ $methods = $pdo->query("SELECT * FROM payment_methods ORDER BY type, name")->fet
                                 <?php if(!empty($m['image_path'])): ?>
                                     <img src="<?php echo asset_url($m['image_path']); ?>" alt="logo" style="height:32px; object-fit:contain;">
                                 <?php else: ?>
-                                    <span style="font-size: 1.2rem;">💳</span>
+                                    <span style="font-size: 1.2rem;"><i data-lucide="credit-card"></i></span>
                                 <?php endif; ?>
                             </td>
                             <td><?php echo htmlspecialchars($m['name']); ?></td>

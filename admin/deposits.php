@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action === 'approve_deposit') {
             $pdo->beginTransaction();
             
-            // Check status first to prevent double approval
+
             $st = $pdo->prepare("SELECT status, user_id, amount FROM deposits WHERE id = ? FOR UPDATE");
             $st->execute([$id]);
             $dep = $st->fetch(PDO::FETCH_ASSOC);
@@ -27,11 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!$dep) throw new RuntimeException('Deposit tidak ditemukan.');
             if ($dep['status'] !== 'pending') throw new RuntimeException('Deposit sudah diproses sebelumnya.');
 
-            // 1. Update status
+
             $stmt = $pdo->prepare("UPDATE deposits SET status = 'success', updated_at = NOW() WHERE id = ?");
             $stmt->execute([$id]);
 
-            // 2. Update user balance
+
             $stmt = $pdo->prepare("UPDATE users SET balance = balance + ? WHERE id = ?");
             $stmt->execute([(int)$dep['amount'], (int)$dep['user_id']]);
 
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fetch deposits with user and payment method info
+
 $stmt = $pdo->query("
     SELECT d.*, u.name as user_name, u.email as user_email, pm.name as payment_name 
     FROM deposits d
@@ -74,7 +74,7 @@ $deposits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <main class="main-content">
             <div class="content-header">
-                <h1>💰 Kelola Deposit</h1>
+                <h1><i data-lucide="wallet"></i> Kelola Deposit</h1>
                 <p>Verifikasi dan setujui permintaan tambah saldo (deposit) dari pengguna</p>
             </div>
 

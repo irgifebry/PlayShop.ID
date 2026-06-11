@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $image_path = str_replace('\\', '/', $image_path);
                     if (substr($image_path, 0, 1) !== '/') $image_path = '/' . ltrim($image_path, '/');
                     
-                    // Delete old file if update success (wait for success check below)
+
                     $old_image_to_delete = $existing['image_path'] ?? null;
                 }
             }
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $pdo->prepare("UPDATE banners SET title = ?, description = ?, image_path = ?, link_url = ?, sort_order = ?, is_active = ?, start_date = ?, end_date = ? WHERE id = ?");
                 $stmt->execute([$title, $description ?: null, $image_path, $link_url ?: null, $sort_order, $is_active, $start_date ?: null, $end_date ?: null, $id]);
                 
-                // If we have an old image to delete, do it now
+
                 if (isset($old_image_to_delete)) {
                     delete_uploaded_file($old_image_to_delete);
                 }
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'delete') {
         $id = safe_int($_POST['id'] ?? 0);
         if ($id > 0) {
-            // Get image path before delete
+
             $stmt = $pdo->prepare("SELECT image_path FROM banners WHERE id = ?");
             $stmt->execute([$id]);
             $b = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -1,9 +1,9 @@
 <?php
-// includes/whatsapp.php
 
-/**
- * Dummy WhatsApp notifier: writes to a log file instead of calling WA API.
- */
+
+
+
+
 function whatsapp_send_dummy(string $phone, string $message, array $meta = []): bool {
     $dir = __DIR__ . '/../storage';
     if (!is_dir($dir)) {

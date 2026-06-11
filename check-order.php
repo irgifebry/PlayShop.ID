@@ -3,7 +3,7 @@ session_start();
 require_once 'config/database.php';
 require_once __DIR__ . '/includes/db_utils.php';
 
-// Ensure user is logged in
+
 if(!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
@@ -18,7 +18,7 @@ $error = '';
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $order_id = $_POST['order_id'];
     
-    // Build query with security check: order must belong to this user
+
     $query = "SELECT t.*, g.name as game_name, p.name as product_name 
               FROM transactions t 
               JOIN games g ON t.game_id = g.id 
@@ -51,16 +51,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     <?php 
-    // Only animate on initial page load (GET), not after form submission (POST)
+
     $animate_class = ($_SERVER['REQUEST_METHOD'] === 'GET') ? 'animate-page-entrance' : ''; 
     ?>
     <section class="check-order-section <?php echo $animate_class; ?>">
         <div class="container">
-            <h1 class="page-title">🔍 Cek Status Pesanan</h1>
+            <h1 class="page-title"><i data-lucide="search"></i> Cek Status Pesanan</h1>
             <p class="page-subtitle">Masukkan Order ID untuk melihat rincian dan status transaksi Anda secara real-time</p>
             
             <div class="check-order-box">
-                <!-- ... existing content ... -->
+                
                 <form method="POST" class="check-form">
                     <div class="form-group">
                         <input type="text" name="order_id" placeholder="Contoh: TRX17123456789" required>
@@ -78,9 +78,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <span class="status-badge <?php echo $transaction['status']; ?> large">
                                 <?php 
                                 $status_text = [
-                                    'success' => '✅ Berhasil',
-                                    'pending' => '⏳ Pending',
-                                    'failed' => '❌ Gagal'
+                                    'success' => '<i data-lucide="check-circle"></i> Berhasil',
+                                    'pending' => '<i data-lucide="clock"></i> Pending',
+                                    'failed' => '<i data-lucide="x-circle"></i> Gagal'
                                 ];
                                 echo $status_text[$transaction['status']];
                                 ?>
@@ -122,15 +122,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <?php if($transaction['status'] === 'success'): ?>
                                 <div class="success-info">
-                                    <p>✅ Diamond/UC sudah masuk ke akun game Anda</p>
+                                    <p><i data-lucide="check-circle"></i> Diamond/UC sudah masuk ke akun game Anda</p>
                                 </div>
                             <?php elseif($transaction['status'] === 'pending'): ?>
                                 <div class="pending-info">
-                                    <p>⏳ Transaksi sedang diproses. Mohon tunggu 1-5 menit.</p>
+                                    <p><i data-lucide="clock"></i> Transaksi sedang diproses. Mohon tunggu 1-5 menit.</p>
                                 </div>
                             <?php else: ?>
                                 <div class="failed-info">
-                                    <p>❌ Transaksi gagal. Silakan hubungi customer service.</p>
+                                    <p><i data-lucide="x-circle"></i> Transaksi gagal. Silakan hubungi customer service.</p>
                                 </div>
                             <?php endif; ?>
                         </div>

@@ -7,7 +7,7 @@ if(!isset($_SESSION['admin_logged_in'])) {
     exit;
 }
 
-// Statistik
+
 $stmt = $pdo->query("SELECT COUNT(*) as total FROM transactions WHERE DATE(created_at) = CURDATE()");
 $today_transactions = $stmt->fetch()['total'];
 
@@ -20,7 +20,7 @@ $pending_transactions = $stmt->fetch()['total'];
 $stmt = $pdo->query("SELECT COUNT(*) as total FROM games");
 $total_games = $stmt->fetch()['total'];
 
-// Transaksi terbaru
+
 $stmt = $pdo->query("SELECT t.*, g.name as game_name, p.name as product_name 
                      FROM transactions t 
                      JOIN games g ON t.game_id = g.id 
@@ -42,38 +42,38 @@ $recent_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="admin-layout">
         <?php include 'sidebar.php'; ?>
 
-        <!-- Main Content -->
+        
         <main class="main-content">
             <div class="content-header">
                 <h1>Dashboard Overview</h1>
                 <p>Selamat datang, <?php echo $_SESSION['admin_username']; ?>!</p>
             </div>
 
-            <!-- Stats Cards -->
+            
             <div class="stats-grid">
                 <div class="stat-card blue">
-                    <div class="stat-icon">📊</div>
+                    <div class="stat-icon"><i data-lucide="bar-chart-2"></i></div>
                     <div class="stat-info">
                         <h3><?php echo $today_transactions; ?></h3>
                         <p>Transaksi Hari Ini</p>
                     </div>
                 </div>
                 <div class="stat-card green">
-                    <div class="stat-icon">💰</div>
+                    <div class="stat-icon"><i data-lucide="wallet"></i></div>
                     <div class="stat-info">
                         <h3>Rp <?php echo number_format($today_revenue, 0, ',', '.'); ?></h3>
                         <p>Pendapatan Hari Ini</p>
                     </div>
                 </div>
                 <div class="stat-card yellow">
-                    <div class="stat-icon">⏳</div>
+                    <div class="stat-icon"><i data-lucide="clock"></i></div>
                     <div class="stat-info">
                         <h3><?php echo $pending_transactions; ?></h3>
                         <p>Transaksi Pending</p>
                     </div>
                 </div>
                 <div class="stat-card purple">
-                    <div class="stat-icon">🎮</div>
+                    <div class="stat-icon"><i data-lucide="gamepad-2"></i></div>
                     <div class="stat-info">
                         <h3><?php echo $total_games; ?></h3>
                         <p>Total Game</p>
@@ -81,7 +81,7 @@ $recent_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
 
-            <!-- Recent Transactions -->
+            
             <div class="table-container">
                 <h2>Transaksi Terbaru</h2>
                 <table class="data-table">

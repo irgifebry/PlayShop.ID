@@ -10,7 +10,7 @@ if(!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Get user data
+
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         if($stmt->execute([$name, $phone, $user_id])) {
             $success = 'Profil berhasil diupdate!';
             $_SESSION['user_name'] = $name;
-            // Refresh user data
+
             $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
             $stmt->execute([$user_id]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -50,7 +50,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Get transaction stats
+
 $statsQuery = "SELECT COUNT(*) as total, SUM(amount) as total_spent FROM transactions WHERE status = 'success' AND ";
 $statsParams = [];
 if (db_has_column($pdo, 'transactions', 'account_user_id')) {
@@ -58,13 +58,13 @@ if (db_has_column($pdo, 'transactions', 'account_user_id')) {
     $statsParams[] = (int)$user_id;
 } else {
     $statsQuery .= " user_id = ? ";
-    $statsParams[] = $user['email']; // legacy
+    $statsParams[] = $user['email']; 
 }
 $stmt = $pdo->prepare($statsQuery);
 $stmt->execute($statsParams);
 $stats = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Get recent deposits
+
 $stmt = $pdo->prepare("SELECT d.*, pm.name as method_name FROM deposits d 
                        JOIN payment_methods pm ON d.payment_method_id = pm.id 
                        WHERE d.user_id = ? ORDER BY d.created_at DESC LIMIT 5");
@@ -88,7 +88,7 @@ $recent_deposits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <section class="profile-section">
         <div class="container">
-            <h1 class="page-title">👤 Profil Saya</h1>
+            <h1 class="page-title"><i data-lucide="user"></i> Profil Saya</h1>
             <p class="page-subtitle">Kelola informasi akun dan pengaturan keamanan Anda</p>
 
             <?php if($success): ?>
@@ -100,7 +100,7 @@ $recent_deposits = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
 
             <div class="profile-grid">
-                <!-- Profile Info Card -->
+                
                 <div class="profile-card">
                     <div class="profile-header">
                         <div class="profile-avatar">
@@ -130,12 +130,12 @@ $recent_deposits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     <div style="margin-top: 1.5rem; display: flex; gap: 10px;">
                         <a href="history.php" class="btn-checkout" style="display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 0.85rem; padding: 0.8rem; background: var(--secondary); flex: 1;">
-                            📜 Riwayat Transaksi
+                            <i data-lucide="file-text"></i> Riwayat Transaksi
                         </a>
                     </div>
                 </div>
 
-                <!-- Recent Deposits -->
+                
                 <div class="profile-card">
                     <h3>Riwayat Deposit Terakhir</h3>
                     <div class="deposit-list" style="margin-top: 1rem;">
@@ -157,7 +157,7 @@ $recent_deposits = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
 
-                <!-- Edit Profile -->
+                
                 <div class="profile-card">
                     <h3>Edit Profil</h3>
                     <form method="POST" class="profile-form">
@@ -181,7 +181,7 @@ $recent_deposits = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </form>
                 </div>
 
-                <!-- Change Password -->
+                
                 <div class="profile-card">
                     <h3>Ubah Password</h3>
                     <form method="POST" class="profile-form">

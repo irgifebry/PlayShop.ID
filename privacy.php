@@ -23,7 +23,7 @@
 
     <div class="container">
         <div class="legal-layout">
-            <!-- Sidebar Navigation -->
+            
             <aside class="legal-sidebar">
                 <nav class="legal-nav">
                     <a href="privacy.php" class="legal-nav-item active">Kebijakan Privasi</a>
@@ -37,7 +37,7 @@
                 </nav>
             </aside>
 
-            <!-- Main Content Area -->
+            
             <main class="legal-content">
                 <div class="legal-block">
                     <h2>1. Kebijakan Privasi</h2>

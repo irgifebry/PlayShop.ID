@@ -38,7 +38,7 @@
 
             <main class="legal-content">
                 <div class="legal-block">
-                    <h2>📱 Tentang Layanan</h2>
+                    <h2><i data-lucide="smartphone"></i> Tentang Layanan</h2>
                     <div class="faq-container">
                         <div class="faq-item active">
                             <div class="faq-question">
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="legal-block">
-                    <h2>💳 Pembayaran</h2>
+                    <h2><i data-lucide="credit-card"></i> Pembayaran</h2>
                     <div class="faq-container">
                         <div class="faq-item active">
                             <div class="faq-question">
@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="legal-block">
-                    <h2>🎮 Akun & Transaksi</h2>
+                    <h2><i data-lucide="gamepad-2"></i> Akun & Transaksi</h2>
                     <div class="faq-container">
                         <div class="faq-item active">
                             <div class="faq-question">
@@ -103,18 +103,18 @@
     <?php include __DIR__ . '/includes/footer.php'; ?>
 
     <script>
-        // FAQ Accordion
+
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
                 const faqItem = question.parentElement;
                 const isActive = faqItem.classList.contains('active');
                 
-                // Close all
+
                 document.querySelectorAll('.faq-item').forEach(item => {
                     item.classList.remove('active');
                 });
                 
-                // Open clicked
+
                 if(!isActive) {
                     faqItem.classList.add('active');
                 }

@@ -10,14 +10,10 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['order_id'])) {
 
 $order_id = $_POST['order_id'];
 
-// TIDAK auto-update ke success, biarkan tetap pending
-// Status akan diupdate oleh admin via admin/transaction-detail.php
-
-// Ambil detail transaksi
-$stmt = $pdo->prepare("SELECT t.*, g.name as game_name, p.name as product_name 
-                       FROM transactions t 
-                       JOIN games g ON t.game_id = g.id 
-                       JOIN products p ON t.product_id = p.id 
+$stmt = $pdo->prepare("SELECT t.*, g.name as game_name, p.name as product_name
+                       FROM transactions t
+                       JOIN games g ON t.game_id = g.id
+                       JOIN products p ON t.product_id = p.id
                        WHERE t.order_id = ?");
 $stmt->execute([$order_id]);
 $transaction = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -27,7 +23,6 @@ if (!$transaction) {
     exit;
 }
 
-// Log pembayaran user (bukan konfirmasi sukses)
 try {
     $logMessage = sprintf(
         "[PEMBAYARAN DIKIRIM] Order ID: %s | Game: %s | Produk: %s | Total: Rp %s | User: %s | Menunggu konfirmasi admin",
@@ -40,7 +35,6 @@ try {
     $stmt = $pdo->prepare("INSERT INTO notifications_log (message, created_at) VALUES (?, NOW())");
     $stmt->execute([$logMessage]);
 } catch (Exception $e) {
-    // ignore log failures silently
 }
 ?>
 <!DOCTYPE html>
@@ -75,28 +69,28 @@ try {
 
     <section class="success-section">
         <div class="container">
-            <h1 class="page-title">⏳ Menunggu Konfirmasi</h1>
+            <h1 class="page-title"><i data-lucide="clock"></i> Menunggu Konfirmasi</h1>
             <p class="page-subtitle">Pembayaran Anda sedang diverifikasi oleh admin</p>
 
             <div class="progress-steps">
                 <div class="step completed">
-                    <div class="step-number">✓</div>
+                    <div class="step-number"><i data-lucide="check"></i></div>
                     <div class="step-label">Pilih Produk</div>
                 </div>
                 <div class="step-line"></div>
                 <div class="step completed">
-                    <div class="step-number">✓</div>
+                    <div class="step-number"><i data-lucide="check"></i></div>
                     <div class="step-label">Pembayaran</div>
                 </div>
                 <div class="step-line"></div>
                 <div class="step active">
-                    <div class="step-number">⏳</div>
+                    <div class="step-number"><i data-lucide="clock"></i></div>
                     <div class="step-label">Verifikasi</div>
                 </div>
             </div>
 
             <div class="success-container">
-                <div class="waiting-icon">⏳</div>
+                <div class="waiting-icon"><i data-lucide="clock"></i></div>
                 <h1 class="success-title">Pembayaran Diterima!</h1>
                 <p class="success-subtitle">Pesanan Anda sedang menunggu konfirmasi dari admin</p>
 
@@ -131,13 +125,13 @@ try {
                 </div>
 
                 <div class="success-info" style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 16px; padding: 1.5rem; margin-top: 1.5rem;">
-                    <p style="margin: 0; color: #92400e;">⏰ <strong>Estimasi waktu verifikasi:</strong> 1-15 menit</p>
+                    <p style="margin: 0; color: #92400e;"><i data-lucide="alarm-clock"></i> <strong>Estimasi waktu verifikasi:</strong> 1-15 menit</p>
                     <p style="margin: 0.5rem 0 0; color: #92400e; font-size: 0.9rem;">Anda akan menerima notifikasi setelah admin mengkonfirmasi pembayaran.</p>
                 </div>
 
                 <div class="success-info" style="margin-top: 1rem;">
-                    <p>📋 Simpan <strong>Order ID</strong> ini untuk mengecek status pesanan Anda</p>
-                    <p>💬 Hubungi CS jika pesanan tidak diproses dalam 30 menit</p>
+                    <p><i data-lucide="clipboard-list"></i> Simpan <strong>Order ID</strong> ini untuk mengecek status pesanan Anda</p>
+                    <p><i data-lucide="message-circle"></i> Hubungi CS jika pesanan tidak diproses dalam 30 menit</p>
                 </div>
 
                 <div class="success-actions">

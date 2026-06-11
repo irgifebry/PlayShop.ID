@@ -10,7 +10,7 @@ if(!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Use account_user_id if schema supports it, fallback to legacy (email stored in transactions.user_id)
+
 $account_user_id = (int)$user_id;
 $account_email = $_SESSION['user_email'] ?? null;
 if (!$account_email) {
@@ -20,7 +20,7 @@ if (!$account_email) {
     $account_email = $u['email'] ?? null;
 }
 
-// Get all transactions
+
 $filter = $_GET['filter'] ?? 'all';
 $start_date = $_GET['start_date'] ?? '';
 $end_date = $_GET['end_date'] ?? '';
@@ -71,7 +71,7 @@ $stmt = $pdo->prepare($query);
 $stmt->execute($params);
 $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Dropdown games
+
 $games = $pdo->query("SELECT id, name FROM games ORDER BY name")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
@@ -90,7 +90,7 @@ $games = $pdo->query("SELECT id, name FROM games ORDER BY name")->fetchAll(PDO::
     <section class="history-section">
         <div class="container">
             <div id="history-header-anim" style="opacity: 0;">
-                <h1 class="page-title">📜 Riwayat Transaksi</h1>
+                <h1 class="page-title"><i data-lucide="file-text"></i> Riwayat Transaksi</h1>
                 <p class="page-subtitle">Pantau semua status pesanan dan riwayat top up Anda</p>
 
                 <div class="filter-tabs">
@@ -127,7 +127,7 @@ $games = $pdo->query("SELECT id, name FROM games ORDER BY name")->fetchAll(PDO::
                 </div>
             </div>
 
-            <!-- Transactions List -->
+            
             <div id="transaction-anim-container" class="transactions-list">
 
                 <?php if(count($transactions) > 0): ?>
@@ -179,14 +179,14 @@ $games = $pdo->query("SELECT id, name FROM games ORDER BY name")->fetchAll(PDO::
                         
                         <?php if($trx['status'] === 'success'): ?>
                         <div class="trx-footer">
-                            <p class="success-msg">✅ Diamond/UC sudah masuk ke akun game Anda</p>
+                            <p class="success-msg"><i data-lucide="check-circle"></i> Diamond/UC sudah masuk ke akun game Anda</p>
                         </div>
                         <?php endif; ?>
                     </div>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <div class="empty-state">
-                        <div class="empty-icon">📦</div>
+                        <div class="empty-icon"><i data-lucide="package"></i></div>
                         <h3>Belum Ada Transaksi</h3>
                         <p>Anda belum melakukan transaksi apapun</p>
                         <a href="index.php" class="btn-primary">Mulai Top Up</a>
@@ -200,7 +200,7 @@ $games = $pdo->query("SELECT id, name FROM games ORDER BY name")->fetchAll(PDO::
 
     <style>
     .transactions-list {
-        opacity: 0; /* Hidden by default to prevent glitch */
+        opacity: 0; 
         will-change: transform, opacity;
     }
     .transactions-list.ready {
@@ -245,46 +245,46 @@ $games = $pdo->query("SELECT id, name FROM games ORDER BY name")->fetchAll(PDO::
 
     <script>
     (function() {
-        // Run as fast as possible
+
         const order = ['all', 'success', 'pending', 'failed'];
         const currentFilter = '<?php echo $filter; ?>';
         const currentIndex = order.indexOf(currentFilter);
         const prevFilter = sessionStorage.getItem('prev_history_filter');
         const prevIndex = order.indexOf(prevFilter);
         
-        // Check if we're navigating within history.php (filter change) or coming from outside
+
         const isInternalNavigation = document.referrer.includes('history.php');
         
         window.addEventListener('DOMContentLoaded', () => {
             const header = document.getElementById('history-header-anim');
             const list = document.getElementById('transaction-anim-container');
             
-            // 1. Scroll Handling
+
             if (isInternalNavigation && prevFilter && prevFilter !== currentFilter) {
-                // FILTER CHANGE - restore scroll position
+
                 const savedScroll = sessionStorage.getItem('history_scroll_pos');
                 if (savedScroll !== null) {
                     window.scrollTo({ top: parseInt(savedScroll), behavior: 'instant' });
                     sessionStorage.removeItem('history_scroll_pos');
                 }
             } else {
-                // COMING FROM NAVBAR/OTHER PAGE - reset to top
+
                 window.scrollTo({ top: 0, behavior: 'instant' });
                 sessionStorage.removeItem('history_scroll_pos');
             }
 
-            // 2. Determine Animation Logic
+
             const isFromProfile = document.referrer.includes('profile.php');
             
             if (isFromProfile && (!prevFilter || prevFilter === currentFilter)) {
-                // FRESH ENTRY FROM PROFILE
-                // Animate BOTH header and list with Fade Up
+
+
                 header.classList.add('fade-in-up-entry');
                 list.classList.add('fade-in-up-entry');
                 header.style.opacity = '1';
             } else if (prevFilter && prevFilter !== currentFilter && isInternalNavigation) {
-                // CHANGING FILTERS WITHIN PAGE
-                // Header stays static, only List slides
+
+
                 header.style.opacity = '1'; 
                 if (currentIndex > prevIndex) {
                     list.classList.add('slide-left');
@@ -292,24 +292,24 @@ $games = $pdo->query("SELECT id, name FROM games ORDER BY name")->fetchAll(PDO::
                     list.classList.add('slide-right');
                 }
             } else {
-                // REFRESH OR DIRECT ENTRY FROM NAVBAR
+
                 header.style.opacity = '1';
                 list.classList.add('fade-in-standard');
             }
             
-            // Reveal Content
+
             list.classList.add('ready');
             
-            // Update filter memory
+
             sessionStorage.setItem('prev_history_filter', currentFilter);
         });
 
-        // Save scroll position only for internal navigation (filter changes)
+
         window.addEventListener('beforeunload', () => {
             if (document.activeElement && document.activeElement.closest('.filter-tabs')) {
                 sessionStorage.setItem('history_scroll_pos', window.scrollY);
             } else {
-                // Navigating away from history - clear scroll position
+
                 sessionStorage.removeItem('history_scroll_pos');
             }
         });

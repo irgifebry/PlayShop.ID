@@ -104,7 +104,7 @@ Dokumentasi proyek.
    - Update counter voucher (jika dipakai)
    - Catat log ke notifications_log
        ↓
-9. User cek status → Pesanan BERHASIL ✅
+9. User cek status → Pesanan BERHASIL <i data-lucide="check-circle"></i>
 ```
 
 ### Flow Deposit Saldo:
@@ -125,7 +125,7 @@ Dokumentasi proyek.
    - Ubah status deposit ke SUCCESS
    - Catat log ke notifications_log
        ↓
-7. Saldo User bertambah ✅
+7. Saldo User bertambah <i data-lucide="check-circle"></i>
 ```
 
 ---

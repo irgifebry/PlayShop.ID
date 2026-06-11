@@ -19,24 +19,24 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newStatus = $_POST['status'] ?? '';
     if (in_array($newStatus, ['pending','success','failed'], true)) {
-        // Get current status to check if it's changing to success
+
         $stmt = $pdo->prepare("SELECT status, product_id, voucher_code, discount_amount FROM transactions WHERE order_id = ?");
         $stmt->execute([$order_id]);
         $currentTrx = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        // Update status
+
         $stmt = $pdo->prepare("UPDATE transactions SET status = ?, updated_at = NOW() WHERE order_id = ?");
         $stmt->execute([$newStatus, $order_id]);
         
-        // If status is being changed TO success (from non-success), process stock and voucher
+
         if ($newStatus === 'success' && $currentTrx && $currentTrx['status'] !== 'success') {
-            // Decrement stock
+
             try {
                 $stmt = $pdo->prepare("UPDATE products SET stock = stock - 1 WHERE id = ? AND stock IS NOT NULL AND stock > 0");
                 $stmt->execute([(int)$currentTrx['product_id']]);
             } catch (Exception $e) {}
             
-            // Update voucher usage counter
+
             try {
                 $voucherCode = strtoupper(trim((string)($currentTrx['voucher_code'] ?? '')));
                 $discountAmount = (int)($currentTrx['discount_amount'] ?? 0);
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             } catch (Exception $e) {}
             
-            // Log to notifications
+
             try {
                 $stmt = $pdo->prepare("SELECT g.name as game_name, p.name as product_name, t.amount, t.game_user_id 
                                        FROM transactions t 
@@ -110,7 +110,7 @@ $gameZoneId = $trx['game_zone_id'];
                 <h1>Detail Transaksi</h1>
                 <div style="display:flex; gap: 10px;">
                     <a class="btn-secondary" href="dashboard.php" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">← Kembali</a>
-                    <button onclick="window.print()" class="btn-primary">🖨️ Print</button>
+                    <button onclick="window.print()" class="btn-primary"><i data-lucide="printer"></i> Print</button>
                 </div>
             </div>
 

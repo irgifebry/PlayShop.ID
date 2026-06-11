@@ -2,7 +2,7 @@
 session_start(); 
 require_once 'config/database.php';
 
-// Fetch real reviews from DB
+
 $reviews = [];
 try {
     $stmt = $pdo->query("SELECT * FROM testimonials WHERE is_shown = 1 ORDER BY created_at DESC");
@@ -52,7 +52,7 @@ $featured_testimonials = array_slice($reviews, 0, 3);
                         <?php foreach($featured_testimonials as $ft): ?>
                         <div style="background: #f9fafb; padding: 1.5rem; border-radius: 16px; border: 1px solid #e5e7eb; position: relative;">
                             <div style="color: #f59e0b; margin-bottom: 0.75rem;">
-                                <?php for($i=0; $i<$ft['rating']; $i++): ?>⭐<?php endfor; ?>
+                                <?php for($i=0; $i<$ft['rating']; $i++): ?><i data-lucide="star"></i><?php endfor; ?>
                             </div>
                             <p style="font-style: italic; color: var(--text); margin-bottom: 1.5rem; font-size: 0.95rem;">"<?php echo htmlspecialchars($ft['comment']); ?>"</p>
                             <div style="display: flex; align-items: center; gap: 10px;">

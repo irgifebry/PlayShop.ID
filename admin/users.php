@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Get all users (support both new and legacy transaction schemas)
+
 if (db_has_column($pdo, 'transactions', 'account_user_id')) {
     $stmt = $pdo->query("SELECT u.*,
                          (SELECT COUNT(*) FROM transactions WHERE account_user_id = u.id) as total_transactions,

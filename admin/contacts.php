@@ -49,7 +49,7 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <main class="main-content">
             <div class="content-header">
-                <h1>📥 Pesan Masuk (Contacts)</h1>
+                <h1><i data-lucide="inbox"></i> Pesan Masuk (Contacts)</h1>
                 <p>Kelola pesan dari formulir Hubungi Kami</p>
             </div>
 

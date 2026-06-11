@@ -7,12 +7,12 @@ if(!isset($_SESSION['admin_logged_in'])) {
     exit;
 }
 
-// Get date filter (robust): handle empty/invalid values & reversed ranges
+
 function normalize_date_ymd(string $raw, string $fallback): string {
     if ($raw === '') return $fallback;
     $dt = DateTime::createFromFormat('Y-m-d', $raw);
     if (!$dt) return $fallback;
-    // Ensure strict match (prevents weird parsing like 2026-13-40)
+
     if ($dt->format('Y-m-d') !== $raw) return $fallback;
     return $raw;
 }
@@ -24,7 +24,7 @@ if ($start_date > $end_date) {
     [$start_date, $end_date] = [$end_date, $start_date];
 }
 
-// Export CSV (Excel-compatible)
+
 if (($_GET['export'] ?? '') === 'csv') {
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="playshop_report_' . $start_date . '_' . $end_date . '.csv"');
@@ -54,7 +54,7 @@ if (($_GET['export'] ?? '') === 'csv') {
     exit;
 }
 
-// Get transaction summary
+
 $stmt = $pdo->prepare("SELECT 
                        COUNT(*) as total_transactions,
                        SUM(CASE WHEN t.status = 'success' THEN 1 ELSE 0 END) as success_count,
@@ -65,10 +65,10 @@ $stmt = $pdo->prepare("SELECT
                        WHERE DATE(t.created_at) BETWEEN ? AND ?");
 $stmt->execute([$start_date, $end_date]);
 $summary = $stmt->fetch(PDO::FETCH_ASSOC);
-// Note: total_profit removed since products table doesn't have purchase_price column
+
 $summary['total_profit'] = 0;
 
-// Get by game
+
 $stmt = $pdo->prepare("SELECT g.name, COUNT(*) as count, SUM(t.amount) as revenue 
                        FROM transactions t 
                        JOIN games g ON t.game_id = g.id 
@@ -96,12 +96,12 @@ $by_game = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="content-header">
                 <h1>Laporan Transaksi</h1>
                 <div style="display:flex; gap: 10px;">
-                    <a class="btn-primary" href="?start_date=<?php echo urlencode($start_date); ?>&end_date=<?php echo urlencode($end_date); ?>&export=csv" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">⬇️ Export CSV</a>
-                    <button onclick="window.print()" class="btn-primary">🖨️ Print Laporan</button>
+                    <a class="btn-primary" href="?start_date=<?php echo urlencode($start_date); ?>&end_date=<?php echo urlencode($end_date); ?>&export=csv" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;"><i data-lucide="download"></i> Export CSV</a>
+                    <button onclick="window.print()" class="btn-primary"><i data-lucide="printer"></i> Print Laporan</button>
                 </div>
             </div>
 
-            <!-- Date Filter -->
+            
             <div class="filter-box">
                 <form method="GET" class="filter-form">
                     <div class="form-group">
@@ -116,10 +116,10 @@ $by_game = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </form>
             </div>
 
-            <!-- Summary Cards -->
+            
             <div class="stats-grid">
                 <div class="stat-card blue">
-                    <div class="stat-icon">📊</div>
+                    <div class="stat-icon"><i data-lucide="bar-chart-2"></i></div>
                     <div class="stat-info">
                         <h3><?php echo (int)($summary['total_transactions'] ?? 0); ?></h3>
                         <p>Total Transaksi</p>
@@ -127,7 +127,7 @@ $by_game = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
                     <div class="stat-card green">
-                        <div class="stat-icon">✅</div>
+                        <div class="stat-icon"><i data-lucide="check-circle"></i></div>
                         <div class="stat-info">
                         <h3><?php echo (int)($summary['success_count'] ?? 0); ?></h3>
                         <p>Berhasil</p>
@@ -135,7 +135,7 @@ $by_game = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <div class="stat-card yellow">
-                        <div class="stat-icon">⏳</div>
+                        <div class="stat-icon"><i data-lucide="clock"></i></div>
                         <div class="stat-info">
                         <h3><?php echo (int)($summary['pending_count'] ?? 0); ?></h3>
                         <p>Pending</p>
@@ -143,7 +143,7 @@ $by_game = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <div class="stat-card purple">
-                        <div class="stat-icon">💰</div>
+                        <div class="stat-icon"><i data-lucide="wallet"></i></div>
                         <div class="stat-info">
                         <h3>Rp <?php echo number_format((int)($summary['total_revenue'] ?? 0), 0, ',', '.'); ?></h3>
                         <p>Total Pendapatan</p>
@@ -151,7 +151,7 @@ $by_game = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <div class="stat-card blue">
-                        <div class="stat-icon">📈</div>
+                        <div class="stat-icon"><i data-lucide="trending-up"></i></div>
                         <div class="stat-info">
                         <h3>Rp <?php echo number_format((int)($summary['total_profit'] ?? 0), 0, ',', '.'); ?></h3>
                         <p>Total Profit (Bersih)</p>
@@ -159,7 +159,7 @@ $by_game = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
 
-            <!-- Revenue by Game -->
+            
             <div class="table-container">
                 <h2>Pendapatan Per Game</h2>
                 <p style="margin: 6px 0 14px; color: #6b7280;">Catatan: tabel ini menghitung transaksi dengan status <strong>success</strong>.</p>

@@ -45,17 +45,17 @@
                     <h2>Nilai-Nilai Kami</h2>
                     <div class="values-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
                         <div class="value-card" style="padding: 1.5rem; background: #f9fafb; border-radius: 12px; text-align: center;">
-                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚡</div>
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;"><i data-lucide="zap"></i></div>
                             <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Kecepatan</h3>
                             <p style="font-size: 0.9rem; color: var(--text-light);">Proses transaksi super cepat, rata-rata di bawah 1 menit.</p>
                         </div>
                         <div class="value-card" style="padding: 1.5rem; background: #f9fafb; border-radius: 12px; text-align: center;">
-                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔒</div>
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;"><i data-lucide="lock"></i></div>
                             <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Keamanan</h3>
                             <p style="font-size: 0.9rem; color: var(--text-light);">Sistem keamanan berlapis untuk melindungi data Anda.</p>
                         </div>
                         <div class="value-card" style="padding: 1.5rem; background: #f9fafb; border-radius: 12px; text-align: center;">
-                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">💯</div>
+                            <div style="font-size: 2rem; margin-bottom: 0.5rem;"><i data-lucide="badge-check"></i></div>
                             <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Terpercaya</h3>
                             <p style="font-size: 0.9rem; color: var(--text-light);">Berlisensi resmi dan terpercaya oleh ribuan pelanggan.</p>
                         </div>

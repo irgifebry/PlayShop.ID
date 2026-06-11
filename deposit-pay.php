@@ -11,7 +11,7 @@ if(!isset($_SESSION['user_id']) || !isset($_GET['id'])) {
 $user_id = $_SESSION['user_id'];
 $deposit_id = (int)$_GET['id'];
 
-// Fetch deposit details
+
 $stmt = $pdo->prepare("SELECT d.*, pm.name as method_name, pm.code as method_code, pm.image_path as method_image, pm.type as method_type 
                        FROM deposits d 
                        JOIN payment_methods pm ON d.payment_method_id = pm.id 
@@ -23,12 +23,12 @@ if(!$deposit) {
     die("Data deposit tidak ditemukan.");
 }
 
-// Konfirmasi pembayaran dikirim oleh user
+
 if (isset($_POST['confirm_payment'])) {
     if ($deposit['status'] === 'pending') {
-        // Hanya tandai bahwa user sudah konfirmasi (opsional: tambah kolom payment_at atau biarkan status pending)
-        // Untuk sekarang kita biarkan status 'pending' agar Admin tahu harus diproses.
-        // Kita gunakan session atau redirect flag untuk memberikan feedback.
+
+
+
         header("Location: deposit-pay.php?id=$deposit_id&submitted=1");
         exit;
     }
@@ -51,20 +51,20 @@ $is_success = ($deposit['status'] === 'success');
 
     <section class="checkout-section">
         <div class="container">
-            <h1 class="page-title">💸 Selesaikan Pembayaran</h1>
+            <h1 class="page-title"><i data-lucide="banknote"></i> Selesaikan Pembayaran</h1>
             <p class="page-subtitle">Silakan lakukan transfer sesuai rincian di bawah ini.</p>
 
             <div class="checkout-container" style="max-width: 650px;">
                 
                 <?php if($is_success): ?>
                     <div style="text-align: center; padding: 3rem 2rem;">
-                        <div style="font-size: 4.5rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.2));">✅</div>
+                        <div style="font-size: 4.5rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.2));"><i data-lucide="check-circle"></i></div>
                         <h2 style="color: var(--primary); font-size: 1.8rem; margin-bottom: 0.5rem;">Deposit Berhasil!</h2>
                         <p style="margin-bottom: 2rem; color: #6b7280; font-size: 1.1rem;">Saldo sebesar <strong>Rp <?php echo number_format($deposit['amount'], 0, ',', '.'); ?></strong> telah ditambahkan ke akun Anda.</p>
                         <a href="profile.php" class="btn-primary" style="padding: 1rem 2.5rem; text-decoration: none; border-radius: 12px; font-weight: 700;">Lihat Saldo Saya</a>
                     </div>
                 <?php elseif($is_submitted || $deposit['status'] === 'pending' && isset($_GET['id'])): ?>
-                    <!-- Intruction Card -->
+                    
                     <div class="payment-card-instruction" style="background: white; border-radius: 20px; padding: 2rem; border: 1px solid #e5e7eb; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 2rem;">
 
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid #f3f4f6; padding-bottom: 1.25rem;">
@@ -106,7 +106,7 @@ $is_success = ($deposit['status'] === 'success');
 
                     <?php if($is_submitted): ?>
                         <div style="background: #e0f2fe; border: 1px solid #7dd3fc; border-radius: 16px; padding: 1.5rem; text-align: center; border-left: 5px solid #0284c7;">
-                            <h3 style="color: #0369a1; margin-bottom: 0.5rem; font-size: 1.15rem;">⏳ Sedang Menunggu Verifikasi</h3>
+                            <h3 style="color: #0369a1; margin-bottom: 0.5rem; font-size: 1.15rem;"><i data-lucide="clock"></i> Sedang Menunggu Verifikasi</h3>
                             <p style="color: #075985; font-size: 0.9rem; line-height: 1.5;">
                                 Pembayaran Anda telah kami terima sistem. Admin kami akan melakukan verifikasi manual dalam waktu <strong>1-10 menit</strong>. Saldo akan bertambah otomatis setelah disetujui.
                             </p>
@@ -117,7 +117,7 @@ $is_success = ($deposit['status'] === 'success');
                     <?php else: ?>
                         <div class="alert info" style="margin-bottom: 1.5rem; background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; border-radius: 12px; padding: 1rem;">
                             <div style="display: flex; gap: 10px; align-items: flex-start;">
-                                <span style="font-size: 1.25rem;">💡</span>
+                                <span style="font-size: 1.25rem;"><i data-lucide="lightbulb"></i></span>
                                 <p style="font-size: 0.85rem; line-height: 1.4;">Setelah mentransfer, silakan klik tombol konfirmasi di bawah. Saldo tidak akan langsung bertambah sebelum Admin menyetujui bukti transfer Anda.</p>
                             </div>
                         </div>

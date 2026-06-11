@@ -1,9 +1,9 @@
 <?php
-// config/database.php
+
 $host = 'localhost';
 $dbname = 'playshop_db';
 $username = 'root';
-$password = ''; // Kosongkan jika menggunakan XAMPP default
+$password = ''; 
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);

@@ -1,14 +1,14 @@
 <?php
-// includes/voucher.php
+
 require_once __DIR__ . '/db_utils.php';
 
-/**
- * Dummy voucher engine:
- * - validates voucher code in table `vouchers`
- * - supports type: percentage|fixed
- * - checks active + not expired
- * - returns discount amount (integer, >=0)
- */
+
+
+
+
+
+
+
 function voucher_apply(PDO $pdo, string $code, int $subtotal): array {
     $code = strtoupper(trim($code));
     if ($code === '') {
@@ -50,7 +50,7 @@ function voucher_apply(PDO $pdo, string $code, int $subtotal): array {
         if ($type === 'fixed') {
             $discount = min($subtotal, max(0, $amount));
         } else {
-            // percentage
+            
             $pct = max(0, min(100, $amount));
             $discount = (int) floor(($pct / 100) * $subtotal);
             $discount = min($subtotal, $discount);
@@ -58,7 +58,7 @@ function voucher_apply(PDO $pdo, string $code, int $subtotal): array {
 
         return ['ok' => true, 'code' => $code, 'discount' => $discount, 'message' => 'Voucher terpakai'];
     } catch (Exception $e) {
-        // If table doesn't exist yet, keep it dummy-safe
+        
         return ['ok' => false, 'code' => $code, 'discount' => 0, 'message' => 'Voucher belum tersedia (DB belum siap)'];
     }
 }

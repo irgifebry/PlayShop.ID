@@ -18,7 +18,7 @@ if(!$post) {
     exit;
 }
 
-// Fetch other posts for sidebar
+
 $other_posts = $pdo->prepare("SELECT * FROM posts WHERE id != ? ORDER BY created_at DESC LIMIT 5");
 $other_posts->execute([$post['id']]);
 $others = $other_posts->fetchAll(PDO::FETCH_ASSOC);

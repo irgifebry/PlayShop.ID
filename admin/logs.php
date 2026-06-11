@@ -42,7 +42,7 @@ $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <main class="main-content">
             <div class="content-header">
-                <h1>📜 Log Sistem (Notifications)</h1>
+                <h1><i data-lucide="file-text"></i> Log Sistem (Notifications)</h1>
                 <div style="display:flex; gap: 10px;">
                     <form method="POST" onsubmit="return confirm('Hapus semua log?')">
                         <input type="hidden" name="action" value="clear_logs">

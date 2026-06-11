@@ -54,7 +54,7 @@ $posts = $pdo->query("SELECT * FROM posts ORDER BY created_at DESC")->fetchAll(P
                                         <?php if($p['image_path']): ?>
                                             <img src="<?php echo asset_url($p['image_path']); ?>" alt="thumb" style="width:100%; height:100%; object-fit: cover;">
                                         <?php else: ?>
-                                            <div style="width:100%; height:100%; display: flex; align-items: center; justify-content: center; font-size: 2rem;">📰</div>
+                                            <div style="width:100%; height:100%; display: flex; align-items: center; justify-content: center; font-size: 2rem;"><i data-lucide="newspaper"></i></div>
                                         <?php endif; ?>
                                     </div>
                                     <div style="flex: 1; padding: 1.5rem 1.5rem 1.5rem 0; min-width: 250px;">
@@ -70,7 +70,7 @@ $posts = $pdo->query("SELECT * FROM posts ORDER BY created_at DESC")->fetchAll(P
                         </div>
                     <?php else: ?>
                         <div style="background: #f9fafb; padding: 3rem; border-radius: 20px; text-align: center; border: 2px dashed #e5e7eb; margin-top: 2rem;">
-                            <div style="font-size: 3rem; margin-bottom: 1rem;">✍️</div>
+                            <div style="font-size: 3rem; margin-bottom: 1rem;"><i data-lucide="edit-3"></i></div>
                             <h3 style="margin-bottom: 0.5rem;">Sedang Dalam Penulisan</h3>
                             <p style="color: var(--text-light);">Nantikan update perdana kami di minggu depan!</p>
                         </div>

@@ -4,7 +4,7 @@ Terima kasih atas minat Anda untuk berkontribusi pada proyek **PLAYSHOP.ID**! Do
 
 ---
 
-## 🛠 Persiapan Development
+## <i data-lucide="wrench"></i> Persiapan Development
 
 1.  **Environment Lokal**
     *   Pastikan PHP >= 7.4.
@@ -17,7 +17,7 @@ Terima kasih atas minat Anda untuk berkontribusi pada proyek **PLAYSHOP.ID**! Do
 
 ---
 
-## 📝 Aturan Penulisan Kode (Coding Standards)
+## <i data-lucide="file-edit"></i> Aturan Penulisan Kode (Coding Standards)
 
 Meskipun ini adalah proyek PHP Native sederhana, menjaga konsistensi kode itu penting:
 
@@ -36,7 +36,7 @@ Meskipun ini adalah proyek PHP Native sederhana, menjaga konsistensi kode itu pe
         ```
     *   Contoh Salah (Rawan SQL Injection):
         ```php
-        $pdo->query("SELECT * FROM users WHERE id = '$id'"); // JANGAN LAKUKAN INI
+        $pdo->query("SELECT * FROM users WHERE id = '$id'"); 
         ```
 
 3.  **HTML & CSS**
@@ -45,7 +45,7 @@ Meskipun ini adalah proyek PHP Native sederhana, menjaga konsistensi kode itu pe
 
 ---
 
-## 🐛 Melaporkan Bug
+## <i data-lucide="bug"></i> Melaporkan Bug
 
 Jika Anda menemukan bug:
 1.  Cek apakah bug tersebut sudah dilaporkan di daftar Issues repo (jika ada).
@@ -56,7 +56,7 @@ Jika Anda menemukan bug:
 
 ---
 
-## ➕ Cara Menambah Fitur Baru
+## <i data-lucide="plus"></i> Cara Menambah Fitur Baru
 
 1.  **Pilih Fitur**: Tentukan fitur apa yang ingin dibuat (misal: "Integrasi Payment Gateway X").
 2.  **Buat Branch**: `git checkout -b fitur-payment-x`.
@@ -69,4 +69,4 @@ Jika Anda menemukan bug:
 
 ---
 
-Selamat berkarya! 🚀
+Selamat berkarya! 

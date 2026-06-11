@@ -88,7 +88,7 @@ $posts = $pdo->query("SELECT * FROM posts ORDER BY created_at DESC")->fetchAll()
                                 <?php if(!empty($p['image_path'])): ?>
                                     <img src="<?php echo asset_url($p['image_path']); ?>" alt="thumb" style="height:40px; width:70px; object-fit:cover; border-radius:4px;">
                                 <?php else: ?>
-                                    <span style="font-size: 1.5rem;">📰</span>
+                                    <span style="font-size: 1.5rem;"><i data-lucide="newspaper"></i></span>
                                 <?php endif; ?>
                             </td>
                             <td><strong><?php echo htmlspecialchars($p['title']); ?></strong></td>

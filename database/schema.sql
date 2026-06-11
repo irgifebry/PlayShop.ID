@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS games (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,
-  icon VARCHAR(10) DEFAULT '🎮',
+  icon VARCHAR(10) DEFAULT '<i data-lucide="gamepad-2"></i>',
   image_path VARCHAR(255) NULL,
   description TEXT NULL,
   how_to_topup TEXT NULL,
@@ -241,12 +241,12 @@ INSERT INTO users (id, name, email, phone, password, balance, status) VALUES
 (1, 'User Demo', 'user@example.com', '081234567890', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 100000, 'active');
 
 INSERT INTO games (id, name, icon, image_path, description, how_to_topup, faq, color_start, color_end, min_price, is_active, category) VALUES
-(1, 'Mobile Legends', '⚔️', 'uploads/games/mobile legends.jpg', 'Top up Diamond Mobile Legends resmi & cepat.', '1) Masukkan User ID dan Zone ID\n2) Pilih nominal\n3) Pilih pembayaran\n4) Bayar\n5) Diamond masuk.', 'Q: Berapa lama?\nA: 1-5 menit setelah pembayaran sukses.', '#3b82f6', '#1e40af', 15000, 1, 'MOBA'),
-(2, 'Free Fire', '🔥', 'uploads/games/ff.jpg', 'Top up Diamond Free Fire cepat & aman.', '1) Masukkan User ID\n2) Pilih nominal\n3) Pilih pembayaran\n4) Bayar.', 'Q: Bisa refund?\nA: Mengikuti S&K.', '#232c5f', '#4e676d', 5000, 1, 'Action'),
-(3, 'PUBG Mobile', '🎯', 'uploads/games/pubgm.jpg', 'Top up UC PUBG Mobile.', '1) Masukkan Player ID\n2) Pilih UC\n3) Bayar.', 'Q: Berapa lama?\nA: Biasanya cepat.', '#1a3a55', '#30556c', 15000, 1, 'Action'),
-(4, 'Genshin Impact', '⭐', 'uploads/games/genshin.jpg', 'Top up Genesis Crystal Genshin Impact.', '1) Masukkan UID\n2) Pilih nominal\n3) Bayar.', 'Q: Apakah aman?\nA: Aman.', '#131219', '#737373', 15000, 1, 'RPG'),
-(5, 'Call of Duty Mobile', '🎖️', 'uploads/games/codm.jpg', 'Top up CP Call of Duty Mobile.', '1) Masukkan Player ID\n2) Pilih CP\n3) Bayar.', 'Q: Bisa pakai voucher?\nA: Bisa jika tersedia.', '#b0a427', '#726b19', 15000, 1, 'Action'),
-(6, 'Valorant', '🎮', 'uploads/games/valorant.jpg', 'Top up VP Valorant.', '1) Masukkan Player ID\n2) Pilih VP\n3) Bayar.', 'Q: Bisa pakai voucher?\nA: Bisa jika tersedia.', '#732525', '#ba2121', 50000, 1, 'PC');
+(1, 'Mobile Legends', '<i data-lucide="swords"></i>', 'uploads/games/mobile legends.jpg', 'Top up Diamond Mobile Legends resmi & cepat.', '1) Masukkan User ID dan Zone ID\n2) Pilih nominal\n3) Pilih pembayaran\n4) Bayar\n5) Diamond masuk.', 'Q: Berapa lama?\nA: 1-5 menit setelah pembayaran sukses.', '#3b82f6', '#1e40af', 15000, 1, 'MOBA'),
+(2, 'Free Fire', '<i data-lucide="flame"></i>', 'uploads/games/ff.jpg', 'Top up Diamond Free Fire cepat & aman.', '1) Masukkan User ID\n2) Pilih nominal\n3) Pilih pembayaran\n4) Bayar.', 'Q: Bisa refund?\nA: Mengikuti S&K.', '#232c5f', '#4e676d', 5000, 1, 'Action'),
+(3, 'PUBG Mobile', '<i data-lucide="target"></i>', 'uploads/games/pubgm.jpg', 'Top up UC PUBG Mobile.', '1) Masukkan Player ID\n2) Pilih UC\n3) Bayar.', 'Q: Berapa lama?\nA: Biasanya cepat.', '#1a3a55', '#30556c', 15000, 1, 'Action'),
+(4, 'Genshin Impact', '<i data-lucide="star"></i>', 'uploads/games/genshin.jpg', 'Top up Genesis Crystal Genshin Impact.', '1) Masukkan UID\n2) Pilih nominal\n3) Bayar.', 'Q: Apakah aman?\nA: Aman.', '#131219', '#737373', 15000, 1, 'RPG'),
+(5, 'Call of Duty Mobile', '<i data-lucide="medal"></i>', 'uploads/games/codm.jpg', 'Top up CP Call of Duty Mobile.', '1) Masukkan Player ID\n2) Pilih CP\n3) Bayar.', 'Q: Bisa pakai voucher?\nA: Bisa jika tersedia.', '#b0a427', '#726b19', 15000, 1, 'Action'),
+(6, 'Valorant', '<i data-lucide="gamepad-2"></i>', 'uploads/games/valorant.jpg', 'Top up VP Valorant.', '1) Masukkan Player ID\n2) Pilih VP\n3) Bayar.', 'Q: Bisa pakai voucher?\nA: Bisa jika tersedia.', '#732525', '#ba2121', 50000, 1, 'PC');
 
 INSERT INTO products (id, game_id, name, price, stock, is_active) VALUES
 (1, 1, '50 Diamond', 15000, NULL, 1),

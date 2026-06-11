@@ -2,7 +2,6 @@
 session_start();
 require_once 'config/database.php';
 
-// Get active promos from database
 $stmt = $pdo->query("SELECT * FROM vouchers WHERE status = 'active' AND expired_date >= CURDATE() ORDER BY created_at DESC");
 $promos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -17,15 +16,14 @@ $promos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <?php include "includes/header.php"; ?>
-    
+
 
 
     <section class="promo-section">
         <div class="container">
-            <h1 class="page-title">🎉 Promo & Diskon Spesial</h1>
+            <h1 class="page-title"><i data-lucide="party-popper"></i> Promo & Diskon Spesial</h1>
             <p class="page-subtitle">Dapatkan harga terbaik untuk top up game favoritmu!</p>
 
-            <!-- Featured Promo Banner -->
             <div class="featured-promo">
                 <div class="promo-banner">
                     <div class="banner-content">
@@ -35,11 +33,10 @@ $promos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <p class="promo-period">Periode: 1 Januari 2025 - 31 Desember 2026</p>
                         <a href="index.php" class="btn-primary">Top Up Sekarang</a>
                     </div>
-                    <div class="banner-graphic">🎮💎</div>
+                    <div class="banner-graphic"><i data-lucide="gamepad-2"></i><i data-lucide="gem"></i></div>
                 </div>
             </div>
 
-            <!-- Voucher/Promo Codes -->
             <div class="vouchers-section">
                 <h2>Kode Promo Aktif</h2>
                 <p>Salin kode dan gunakan saat checkout</p>
@@ -49,12 +46,12 @@ $promos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php foreach($promos as $promo): ?>
                         <div class="voucher-card">
                             <div class="voucher-header">
-                                <span class="voucher-icon">🎫</span>
+                                <span class="voucher-icon"><i data-lucide="ticket"></i></span>
                                 <span class="voucher-type"><?php echo $promo['type'] === 'percentage' ? 'DISKON' : 'POTONGAN'; ?></span>
                             </div>
                             <div class="voucher-body">
                                 <h3 class="voucher-value">
-                                    <?php 
+                                    <?php
                                     if($promo['type'] === 'percentage') {
                                         echo $promo['amount'] . '%';
                                     } else {
@@ -72,10 +69,9 @@ $promos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <!-- Default Dummy Promos -->
                         <div class="voucher-card">
                             <div class="voucher-header">
-                                <span class="voucher-icon">🎫</span>
+                                <span class="voucher-icon"><i data-lucide="ticket"></i></span>
                                 <span class="voucher-type">DISKON</span>
                             </div>
                             <div class="voucher-body">
@@ -91,7 +87,7 @@ $promos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <div class="voucher-card">
                             <div class="voucher-header">
-                                <span class="voucher-icon">🎫</span>
+                                <span class="voucher-icon"><i data-lucide="ticket"></i></span>
                                 <span class="voucher-type">POTONGAN</span>
                             </div>
                             <div class="voucher-body">
@@ -107,7 +103,7 @@ $promos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <div class="voucher-card">
                             <div class="voucher-header">
-                                <span class="voucher-icon">🎫</span>
+                                <span class="voucher-icon"><i data-lucide="ticket"></i></span>
                                 <span class="voucher-type">DISKON</span>
                             </div>
                             <div class="voucher-body">
@@ -123,7 +119,7 @@ $promos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <div class="voucher-card">
                             <div class="voucher-header">
-                                <span class="voucher-icon">🎫</span>
+                                <span class="voucher-icon"><i data-lucide="ticket"></i></span>
                                 <span class="voucher-type">POTONGAN</span>
                             </div>
                             <div class="voucher-body">
@@ -140,38 +136,36 @@ $promos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
 
-            <!-- Special Offers -->
             <div class="special-offers">
                 <h2>Penawaran Spesial Lainnya</h2>
-                
+
                 <div class="offers-grid">
                     <div class="offer-card">
-                        <div class="offer-icon">🎁</div>
+                        <div class="offer-icon"><i data-lucide="gift"></i></div>
                         <h3>Cashback 10%</h3>
                         <p>Dapatkan cashback hingga Rp 50.000 untuk transaksi pertama!</p>
                     </div>
 
                     <div class="offer-card">
-                        <div class="offer-icon">💳</div>
+                        <div class="offer-icon"><i data-lucide="credit-card"></i></div>
                         <h3>Promo E-Wallet</h3>
                         <p>Diskon 15% untuk pembayaran via DANA, OVO, atau GoPay</p>
                     </div>
 
                     <div class="offer-card">
-                        <div class="offer-icon">🏆</div>
+                        <div class="offer-icon"><i data-lucide="trophy"></i></div>
                         <h3>Loyalty Rewards</h3>
                         <p>Kumpulkan poin setiap transaksi dan tukar dengan diskon!</p>
                     </div>
 
                     <div class="offer-card">
-                        <div class="offer-icon">👥</div>
+                        <div class="offer-icon"><i data-lucide="users"></i></div>
                         <h3>Refer a Friend</h3>
                         <p>Ajak teman dan dapatkan bonus Rp 20.000 untuk kalian berdua!</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Terms & Conditions -->
             <div class="promo-terms">
                 <h3>Syarat & Ketentuan</h3>
                 <ul>

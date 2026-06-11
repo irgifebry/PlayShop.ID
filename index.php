@@ -3,7 +3,6 @@ session_start();
 require_once 'config/database.php';
 require_once __DIR__ . '/includes/db_utils.php';
 
-// Ambil banner aktif (opsional)
 $banners = [];
 try {
     $stmt = $pdo->query("
@@ -19,7 +18,6 @@ try {
     $banners = [];
 }
 
-// Ambil data game dari database
 $stmt = $pdo->query("SELECT * FROM games WHERE is_active = 1 ORDER BY name");
 $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -34,9 +32,7 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
     <?php include 'includes/header.php'; ?>
-
 
 
     <?php if (count($banners) > 0): ?>
@@ -59,15 +55,13 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
                 <?php if (count($banners) > 1): ?>
-                <!-- Navigation buttons -->
                 <button class="carousel-btn carousel-btn-prev" id="prevBtn" aria-label="Previous banner">
-                    <span style="transform: translateX(-2px);">❮</span>
+                    <span style="transform: translateX(-2px);"><i data-lucide="chevron-left"></i></span>
                 </button>
                 <button class="carousel-btn carousel-btn-next" id="nextBtn" aria-label="Next banner">
-                    <span style="transform: translateX(2px);">❯</span>
+                    <span style="transform: translateX(2px);"><i data-lucide="chevron-right"></i></span>
                 </button>
 
-                <!-- Indicators -->
                 <div class="carousel-indicators" id="indicators">
                     <?php for($i = 0; $i < count($banners); $i++): ?>
                         <button class="indicator <?php echo $i === 0 ? 'active' : ''; ?>" data-slide="<?php echo $i; ?>" aria-label="Go to slide <?php echo $i + 1; ?>"></button>
@@ -79,7 +73,6 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
     <?php endif; ?>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -87,15 +80,15 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <p class="hero-subtitle">Proses otomatis dalam hitungan detik. Aman, Cepat, Terpercaya!</p>
                 <div class="hero-features">
                     <div class="feature-item">
-                        <span class="feature-icon">⚡</span>
+                        <span class="feature-icon"><i data-lucide="zap"></i></span>
                         <span>Proses Instan</span>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon">🔒</span>
+                        <span class="feature-icon"><i data-lucide="lock"></i></span>
                         <span>100% Aman</span>
                     </div>
                     <div class="feature-item">
-                        <span class="feature-icon">💰</span>
+                        <span class="feature-icon"><i data-lucide="wallet"></i></span>
                         <span>Harga Murah</span>
                     </div>
                 </div>
@@ -103,19 +96,16 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
 
-    <!-- Games Section -->
     <section id="games" class="games-section">
         <div class="container">
             <h2 class="section-title">Pilih Game Favoritmu</h2>
             <p class="section-subtitle">Top up mudah untuk game-game populer</p>
-            
-            <!-- Searchbar -->
+
             <div class="search-container">
                 <input type="text" id="searchInput" class="search-input" placeholder="Cari game...">
-                <span class="search-icon">🔍</span>
+                <span class="search-icon"><i data-lucide="search"></i></span>
             </div>
 
-            <!-- Category Filter -->
             <div class="category-filter">
                 <button class="category-btn active" onclick="filterByCategory('all', this)">Semua</button>
                 <button class="category-btn" onclick="filterByCategory('RPG', this)">RPG</button>
@@ -151,7 +141,6 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
 
-    <!-- Quick Career Callout (Example of Solution 3: Cross-linking) -->
     <section class="career-callout" style="padding: 3rem 0; background: var(--bg); text-align: center;">
         <div class="container">
             <h3>Ingin menjadi bagian dari kami?</h3>
@@ -163,7 +152,6 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php include __DIR__ . '/includes/footer.php'; ?>
 
     <script>
-        // Carousel functionality
         let currentSlide = 0;
         let slideInterval;
         const bannerCount = <?php echo count($banners); ?>;
@@ -192,10 +180,8 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             if (!bannerTrack) return;
 
-            // Update transform
             bannerTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-            // Update active classes
             bannerItems.forEach((item, index) => {
                 item.classList.toggle('active', index === currentSlide);
             });
@@ -224,7 +210,7 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         function startAutoPlay() {
-            slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+            slideInterval = setInterval(nextSlide, 5000);
         }
 
         function resetAutoPlay() {
@@ -232,16 +218,13 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
             startAutoPlay();
         }
 
-        // Initialize carousel when DOM is loaded
         document.addEventListener('DOMContentLoaded', initCarousel);
 
-        // Game filtering functionality
         let currentCategory = 'all';
 
         function filterByCategory(category, btn) {
             currentCategory = category;
 
-            // Update button styles
             document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
 
@@ -268,7 +251,6 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 }
             });
 
-            // Show "no results" message if needed
             let noResultsMsg = document.getElementById('noResultsMsg');
             if (visibleCount === 0) {
                 if (!noResultsMsg) {
@@ -284,7 +266,6 @@ $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
         }
 
-        // Setup search input listener
         const searchInput = document.getElementById('searchInput');
         if(searchInput) searchInput.addEventListener('input', filterGames);
     </script>

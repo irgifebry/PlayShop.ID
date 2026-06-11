@@ -1,5 +1,5 @@
 <?php
-// includes/auth.php
+
 
 function require_user_login(): void {
     if (session_status() === PHP_SESSION_NONE) session_start();

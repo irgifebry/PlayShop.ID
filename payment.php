@@ -11,7 +11,6 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Ensure user is logged in
 if(!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
@@ -19,8 +18,8 @@ if(!isset($_SESSION['user_id'])) {
 
 $game_id = $_POST['game_id'];
 $game_name = $_POST['game_name'];
-$game_user_id = $_POST['user_id'];      // user id in game
-$game_zone_id = $_POST['zone_id'] ?? ''; // zone id in game (optional)
+$game_user_id = $_POST['user_id'];
+$game_zone_id = $_POST['zone_id'] ?? '';
 $product_id = $_POST['product_id'];
 $payment_method = $_POST['payment_method'];
 $voucher_code = $_POST['voucher_code'] ?? '';
@@ -28,7 +27,6 @@ $voucher_code = $_POST['voucher_code'] ?? '';
 $account_user_id = $_SESSION['user_id'] ?? null;
 $account_email = $_SESSION['user_email'] ?? null;
 
-// Ambil info produk
 $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
 $stmt->execute([$product_id]);
 $product = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -36,16 +34,12 @@ $product = $stmt->fetch(PDO::FETCH_ASSOC);
 $admin_fee = 1000;
 $subtotal = (int)$product['price'];
 
-// Apply voucher (dummy engine)
 $voucher = voucher_apply($pdo, $voucher_code, $subtotal);
 $discount = (int)($voucher['discount'] ?? 0);
 $total = max(0, $subtotal + $admin_fee - $discount);
 
-// Simpan transaksi ke database
 $order_id = 'TRX' . time() . rand(1000, 9999);
 
-// Prefer new schema columns if available; fallback to legacy columns otherwise
-    // Insert transaction using modern schema (only game_user_id/game_zone_id)
     $stmt = $pdo->prepare("
         INSERT INTO transactions 
             (order_id, game_id, product_id, account_user_id, account_email, game_user_id, game_zone_id, payment_method, subtotal, admin_fee, discount_amount, voucher_code, amount, status, created_at) 
@@ -85,12 +79,12 @@ $_SESSION['order_id'] = $order_id;
 
     <section class="payment-section">
         <div class="container">
-            <h1 class="page-title">🔐 Selesaikan Pembayaran Anda</h1>
+            <h1 class="page-title"><i data-lucide="lock"></i> Selesaikan Pembayaran Anda</h1>
             <p class="page-subtitle">Silakan selesaikan pembayaran sesuai metode yang Anda pilih</p>
 
             <div class="progress-steps">
                 <div class="step completed">
-                    <div class="step-number">✓</div>
+                    <div class="step-number"><i data-lucide="check"></i></div>
                     <div class="step-label">Pilih Produk</div>
                 </div>
                 <div class="step-line"></div>
@@ -167,7 +161,7 @@ $_SESSION['order_id'] = $order_id;
                     <div class="payment-simulation">
                         <h3>Simulasi Pembayaran <?php echo $payment_method; ?></h3>
                         <div class="qr-dummy">
-                            <div class="qr-box">📱</div>
+                            <div class="qr-box"><i data-lucide="smartphone"></i></div>
                             <p>Scan QR Code Dummy</p>
                         </div>
                         
@@ -189,8 +183,7 @@ $_SESSION['order_id'] = $order_id;
     </section>
 
     <script>
-        // Countdown timer
-        let timeLeft = 900; // 15 menit
+        let timeLeft = 900;
         const countdown = setInterval(() => {
             timeLeft--;
             const minutes = Math.floor(timeLeft / 60);

@@ -4,7 +4,7 @@ Selamat datang di **PLAYSHOP.ID**, sebuah platform top-up game online yang cepat
 
 ---
 
-## 📋 Daftar Isi
+## Daftar Isi
 
 1. [Tentang Proyek](#-tentang-proyek)
 2. [Fitur Utama](#-fitur-utama)
@@ -18,7 +18,7 @@ Selamat datang di **PLAYSHOP.ID**, sebuah platform top-up game online yang cepat
 
 ---
 
-## 📖 Tentang Proyek
+## Tentang Proyek
 
 **PLAYSHOP.ID** adalah aplikasi web sederhana namun fungsional untuk melakukan top-up berbagai game populer seperti Mobile Legends, Free Fire, PUBG Mobile, dan lainnya. Aplikasi ini dirancang dengan antarmuka yang modern, responsif, dan mudah dinavigasi.
 
@@ -26,9 +26,9 @@ Tujuan utama proyek ini adalah menyediakan contoh implementasi toko online produ
 
 ---
 
-## ✨ Fitur Utama
+## Fitur Utama
 
-### 👤 Pengguna (User)
+### Pengguna (User)
 *   **Beranda Interaktif**: Slider banner promo dan daftar game populer.
 *   **Pencarian & Filter**: Mencari game berdasarkan nama atau kategori (RPG, MOBA, dll).
 *   **Detail Game**: Halaman khusus untuk setiap game dengan pilihan nominal top-up.
@@ -37,7 +37,7 @@ Tujuan utama proyek ini adalah menyediakan contoh implementasi toko online produ
 *   **Akun Member**: Registrasi, Login, dan Riwayat Transaksi.
 *   **Halaman Statis**: Tentang Kami, Karir, Blog, Kontak, FAQ, Syarat & Ketentuan, Kebijakan Privasi.
 
-### 🛡️ Admin Panel (`/admin`)
+### Admin Panel (`/admin`)
 *   **Dashboard**: Ringkasan statistik penjualan dan pengguna.
 *   **Manajemen Game**: Tambah, edit, hapus game (ikon, warna, deskripsi).
 *   **Manajemen Produk**: Mengatur nominal top-up dan harga untuk setiap game.
@@ -52,7 +52,7 @@ Tujuan utama proyek ini adalah menyediakan contoh implementasi toko online produ
 
 ---
 
-## 🛠 Teknologi yang Digunakan
+## Teknologi yang Digunakan
 
 *   **Bahasa Pemrograman**: PHP (Native / Vanilla) vers 7.4 atau lebih baru.
 *   **Database**: MySQL / MariaDB.
@@ -63,20 +63,20 @@ Tidak ada framework PHP (seperti Laravel/CodeIgniter) atau CSS (seperti Bootstra
 
 ---
 
-## 💻 Prasyarat Sistem
+## Prasyarat Sistem
 
 Sebelum memulai, pastikan komputer Anda telah terinstal:
 
 1.  **Web Server & Database**:
-    *   Rekomendasi: [XAMPP](https://www.apachefriends.org/) (Windows/Linux/Mac).
+    *   Rekomendasi: [XAMPP](https:
     *   Alternative: WAMP, Laragon, atau MAMP.
 2.  **Code Editor**:
-    *   Rekomendasi: [VS Code](https://code.visualstudio.com/).
+    *   Rekomendasi: [VS Code](https:
 3.  **Browser Modern**: Google Chrome, Firefox, Edge, atau Safari.
 
 ---
 
-## 🚀 Instalasi & Pengaturan
+## Instalasi & Pengaturan
 
 Ikuti langkah-langkah berikut untuk menjalankan proyek ini di komputer lokal Anda:
 
@@ -89,7 +89,7 @@ C:\xampp\htdocs\playshop
 ```
 
 ### 2. Buat Database
-1.  Buka **phpMyAdmin** (biasanya di `http://localhost/phpmyadmin`).
+1.  Buka **phpMyAdmin** (biasanya di `http:
 2.  Buat database baru dengan nama `playshop_db`.
     *   *Catatan: Nama database bisa disesuaikan, tapi pastikan update juga di konfigurasi.*
 
@@ -103,36 +103,32 @@ C:\xampp\htdocs\playshop
 Buka file `config/database.php` dengan text editor dan sesuaikan kredensial database Anda:
 
 ```php
-// config/database.php
 $host = 'localhost';
-$dbname = 'playshop_db'; // Sesuaikan jika nama database berbeda
-$username = 'root';      // Default XAMPP adalah root
-$password = '';          // Default XAMPP adalah kosong
-```
+$dbname = 'playshop_db'; $username = 'root';      $password = '';          ```
 
 ### 5. Jalankan Aplikasi
 Buka browser dan akses:
-*   **Halaman Utama**: `http://localhost/playshop/`
-*   **Halaman Admin**: `http://localhost/playshop/admin/` (Login default admin akan dijelaskan di dokumentasi lanjutan atau buat user baru dan ubah role di database jika belum tersedia akun admin default).
+*   **Halaman Utama**: `http:
+*   **Halaman Admin**: `http:
 
 ---
 
-## 📂 Struktur Folder
+## Struktur Folder
 
 Berikut adalah gambaran umum struktur direktori proyek:
 
 ```
 playshop/
-├── admin/              # Halaman-halaman panel admin
-├── api/                # Endpoint API sederhana (JSON output)
-├── assets/             # Gambar statis, upload user, dll
-├── config/             # File konfigurasi (koneksi database)
-├── css/                # File CSS (style.css, mobile-optimization.css)
-├── database/           # File SQL untuk skema database
-├── includes/           # Potongan kode PHP reusable (header, footer, functions)
-├── js/                 # File JavaScript utama
-├── uploads/            # Folder tujuan upload gambar (game, banner)
-├── index.php           # Halaman utama
+├── admin/              
+├── api/                
+├── assets/             
+├── config/             
+├── css/                
+├── database/           
+├── includes/           
+├── js/                 
+├── uploads/            
+├── index.php           
 └── ... (file php lainnya)
 ```
 
@@ -140,7 +136,7 @@ Untuk detail lebih lengkap, silakan baca dokumentasi di folder `docs/`.
 
 ---
 
-## 📚 Dokumentasi Lanjutan
+## Dokumentasi Lanjutan
 
 Untuk memahami sistem lebih dalam, kami telah menyediakan dokumentasi terpisah di folder `docs/`:
 
@@ -151,7 +147,7 @@ Untuk memahami sistem lebih dalam, kami telah menyediakan dokumentasi terpisah d
 
 ---
 
-## 🤝 Kontribusi
+## Kontribusi
 
 Kontribusi sangat diterima! Jika Anda ingin menambahkan fitur baru atau memperbaiki bug:
 
@@ -163,7 +159,7 @@ Kontribusi sangat diterima! Jika Anda ingin menambahkan fitur baru atau memperba
 
 ---
 
-## 📄 Lisensi
+## Lisensi
 
 Proyek ini bersifat open-source dan bebas digunakan untuk pembelajaran atau pengembangan lebih lanjut.
 

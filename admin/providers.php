@@ -59,11 +59,11 @@ $providers = $pdo->query("SELECT * FROM api_providers")->fetchAll();
             <div class="stats-grid">
                 <?php foreach($providers as $p): ?>
                 <div class="stat-card <?php echo $p['is_active'] ? 'blue' : 'gray'; ?>">
-                    <div class="stat-icon">🔌</div>
+                    <div class="stat-icon"><i data-lucide="plug"></i></div>
                     <div class="stat-info">
                         <h3><?php echo htmlspecialchars($p['name']); ?></h3>
                         <p>Saldo: Rp <?php echo number_format($p['balance'], 0, ',', '.'); ?></p>
-                        <small>Status: <?php echo $p['is_active'] ? '✅ Terhubung' : '❌ Non-aktif'; ?></small>
+                        <small>Status: <?php echo $p['is_active'] ? '<i data-lucide="check-circle"></i> Terhubung' : '<i data-lucide="x-circle"></i> Non-aktif'; ?></small>
                         <button class="btn-secondary" onclick='showModal(<?php echo json_encode($p); ?>)' style="margin-top:10px; width: 100%;">Config</button>
                     </div>
                 </div>
